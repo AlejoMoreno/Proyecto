@@ -1,0 +1,23 @@
+%cargar el archivo en matlab
+X = load('CodeIndex.txt');
+%convierte la matriz en matriz dispersa con otras funciones de matlab 
+X = full(spconvert(X)); 
+% dlmwrite ('MatDisText.txt',X);  //escribir la matriz
+%convierte la matriz en double
+X = double(X);
+%verificar si tiene valores negativos
+for i=1:5050
+	for j=1:5666
+		if X(i,j) < 0
+			a=-1
+		end
+	end
+end
+%normalizacion L1
+normalize_X = X/norm(X);
+%compute PCA or t-SNE
+[mappedX, mapping] = compute_mapping(normalize_X, 'PCA', 2);
+%visualizar
+plot(mappedX(:,1),mappedX(:,2),'*')
+%TNSE other 
+ mappedX = tsne(XtTraining,[],2,30,30)
